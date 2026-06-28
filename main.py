@@ -1,6 +1,6 @@
 """
 @input: config.toml 中的 webhook token、api_key 与群 ID、外部 HTTP 请求
-@output: 向指定微信群推送纯文本消息（通用 webhook 格式）
+@output: 向指定群推送纯文本消息（通用 webhook 格式）
 @position: 插件层 inbound webhook，为 CI/监控等外部系统提供群消息推送入口
 """
 
@@ -87,7 +87,7 @@ class WebhookPush(PluginBase):
 
     @staticmethod
     def _wechat_char_length(text: str) -> int:
-        """估算微信文本长度：汉字等非 ASCII 按 2 字符，英文符号按 1 字符。"""
+        """估算文本长度：汉字等非 ASCII 按 2 字符，英文符号按 1 字符。"""
         return sum(1 if ord(char) <= 127 else 2 for char in text)
 
     def _extract_api_key(self, request: Request, payload: dict[str, Any] | None) -> str:
@@ -270,7 +270,7 @@ class WebhookPush(PluginBase):
         )
         if text_wechat_len > 4000:
             logger.warning(
-                "[WebhookPush] 文本长度超过微信会话消息限制，可能发送失败: "
+                "[WebhookPush] 文本长度超过会话消息限制，可能发送失败: "
                 f"wechat_len={text_wechat_len}, limit=4000"
             )
         group_wxid = webhook["group_wxid"]
