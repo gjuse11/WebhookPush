@@ -1,6 +1,6 @@
 # WebhookPush - 群消息 Webhook 推送
 
-外部系统按以下格式配置即可向微信群推送消息。
+外部系统按以下格式配置即可向相关群组推送消息。
 
 ## 填写模板（对照配置界面）
 
@@ -139,6 +139,5 @@ curl -G "http://127.0.0.1/api/webhook/alert-group-secret-token-change-me" \
 
 ## 注意事项
 
-- 微信不支持 Markdown，文本原样发送
 - 修改配置后需重载插件或重启 AllBot
 - 鉴权字段名兼容：`api-key` / `api_key` / `apikey` / `x-api-key` / `api`（header、body、URL 均可）
