@@ -86,7 +86,7 @@ class WebhookPush(PluginBase):
         return content
 
     @staticmethod
-    def _wechat_char_length(text: str) -> int:
+    def _text_char_length(text: str) -> int:
         """估算文本长度：汉字等非 ASCII 按 2 字符，英文符号按 1 字符。"""
         return sum(1 if ord(char) <= 127 else 2 for char in text)
 
@@ -242,7 +242,7 @@ class WebhookPush(PluginBase):
         logger.info(
             "[WebhookPush] 解析消息内容: "
             f"content={content!r}, from={from_source!r}, "
-            f"content_wechat_len={self._wechat_char_length(content)}"
+            f"content_text_len={self._text_char_length(content)}"
         )
 
         if not content:
@@ -263,15 +263,15 @@ class WebhookPush(PluginBase):
         self._last_request_at[token] = now
 
         text = self._format_message(content, from_source)
-        text_wechat_len = self._wechat_char_length(text)
+        text_len = self._text_char_length(text)
         logger.info(
             "[WebhookPush] 准备发送原始文本: "
-            f"text={text!r}, wechat_len={text_wechat_len}, limit=4000"
+            f"text={text!r}, text_len={text_len}, limit=4000"
         )
-        if text_wechat_len > 4000:
+        if text_len > 4000:
             logger.warning(
                 "[WebhookPush] 文本长度超过会话消息限制，可能发送失败: "
-                f"wechat_len={text_wechat_len}, limit=4000"
+                f"text_len={text_len}, limit=4000"
             )
         group_wxid = webhook["group_wxid"]
         try:
