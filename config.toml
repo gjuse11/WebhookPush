@@ -1,0 +1,19 @@
+[WebhookPush]
+enable = true
+
+# 同一 token 两次请求的最小间隔（秒）
+rate-limit-seconds = 1
+
+# 每个群一个独立 webhook，外部系统按下方格式填写即可
+[[webhooks]]
+name = "开发群"
+token = ""
+group_wxid = ""
+api_key = ""
+
+[[webhooks]]
+name = "告警群"
+token = ""
+group_wxid = "@chatroom"
+# api_key 留空则仅校验 URL 中的 token
+api_key = ""
